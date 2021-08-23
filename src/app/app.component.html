@@ -1,0 +1,64 @@
+<p *ngIf="!hasLoadedMonsters">Loading monsters...</p>
+
+<ng-container *ngIf="!isLoadingAnything">
+  <h1>Menu</h1>
+  <button (click)="startGame()">Start</button>
+  <button (click)="stopGame()">Stop</button>
+
+  <h1>The Game</h1>
+
+  <p *ngIf="error != null"><strong>ERROR</strong>: {{ error }}</p>
+
+  <ng-container *ngIf="!isLoadingAnything && isPlaying">
+    <ng-container *ngIf="player != null">
+      <h2>Character</h2>
+      <dl>
+        <dt>Level</dt>
+        <dd>{{ player.level }}</dd>
+        <dt>Attack</dt>
+        <dd>{{ player.attack }}</dd>
+        <dt>Experience</dt>
+        <dd>{{ player.exp | number: "1.3" }}%</dd>
+      </dl>
+    </ng-container>
+
+    <ng-container *ngIf="currentMonster != null">
+      <h2>Current Monster</h2>
+      <dl>
+        <dt>Level</dt>
+        <dd>{{ currentMonster.model.level }}</dd>
+        <dt>Name</dt>
+        <dd>{{ currentMonster.model.name.en }}</dd>
+        <dt>Health Points</dt>
+        <dd>{{ currentMonster.currentHp }} / {{ currentMonster.model.hp }}</dd>
+        <dt>Health Points (Percent)</dt>
+        <dd>
+          {{
+            (currentMonster.currentHp / currentMonster.model.hp) * 100
+              | number: "1.3"
+          }}
+          %
+        </dd>
+      </dl>
+      <button (click)="attackMonster()">Attack</button>
+      <input
+        (change)="onAutoAttackChange($event)"
+        type="checkbox"
+        id="autoAttack"
+        name="autoAttack"
+        value="autoAttack"
+      /><label for="autoAttack">Auto Attack</label>
+    </ng-container>
+
+    <ng-container *ngIf="player != null">
+      <h2>Achievements</h2>
+      <dl>
+        <dt>Monster Kills</dt>
+        <dd>{{ player.kills }}</dd>
+        <dt>Total Damage Done</dt>
+        <dd>{{ player.totalDamage }}</dd>
+      </dl>
+    </ng-container>
+
+  </ng-container>
+</ng-container>
