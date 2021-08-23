@@ -1,0 +1,1 @@
+ng build --base-href /FlyffMPreview/dist/flyff-m-preview/

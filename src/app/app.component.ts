@@ -86,7 +86,7 @@ export class AppComponent {
   getRandomMonster(level: number): MonsterModel | null {
     var monsters: MonsterModel[] = [];
     this.gameData.allMonsters.forEach((m) => {
-      if (m.name.en.startsWith('Master')) {
+      if (m.name.en.startsWith('Master') || m.name.en.startsWith('Giant')) {
         return;
       }
       if (m.level != level) return;
